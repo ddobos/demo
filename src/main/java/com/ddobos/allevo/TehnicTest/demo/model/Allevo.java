@@ -12,11 +12,13 @@ public class Allevo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String queueName;
-    private String Description;
+    private String description;
     private int exitPoint;
-    private int type;
     @OneToMany(targetEntity = Action.class)
-    private Set<Action> setActions = new HashSet<>();
+    private Set<Action> actions = new HashSet<>();
+    @OneToMany(targetEntity = Type.class)
+    private Set<Type> types = new HashSet<>();
+
 
     public Allevo() {
     }
@@ -24,26 +26,25 @@ public class Allevo {
     public Allevo(Long id, String queueName, String description, int exitPoint, int type, Set<Action> setActions) {
         this.id = id;
         this.queueName = queueName;
-        Description = description;
+        this.description = description;
         this.exitPoint = exitPoint;
-        this.type = type;
-        this.setActions = setActions;
+        this.actions = setActions;
     }
 
-    public int getType() {
-        return type;
+    public Set<Action> getActions() {
+        return actions;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setActions(Set<Action> actions) {
+        this.actions = actions;
     }
 
-    public Set<Action> getSetActions() {
-        return setActions;
+    public Set<Type> getTypes() {
+        return types;
     }
 
-    public void setSetActions(Set<Action> setActions) {
-        this.setActions = setActions;
+    public void setTypes(Set<Type> types) {
+        this.types = types;
     }
 
     public Long getId() {
@@ -63,11 +64,11 @@ public class Allevo {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public int getExitPoint() {
