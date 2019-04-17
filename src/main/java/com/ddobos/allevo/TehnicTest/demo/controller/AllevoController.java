@@ -2,11 +2,12 @@ package com.ddobos.allevo.TehnicTest.demo.controller;
 
 import com.ddobos.allevo.TehnicTest.demo.model.Allevo;
 import com.ddobos.allevo.TehnicTest.demo.repository.AllevoRepository;
-import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+
 
 @RestController
 public class AllevoController {
@@ -15,18 +16,31 @@ public class AllevoController {
     private AllevoRepository allevoRepository;
 
     @GetMapping("/edit")
-    public List<Allevo> getEditPage(){
+    public List<Allevo> getEditPage() {
         return allevoRepository.findAll();
     }
 
-    @PostMapping("/edit")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Allevo addAllevo(@RequestBody Allevo allevo){
-        return allevoRepository.save(allevo);
+    @GetMapping("/edit/add")
+    public String getAddPage() {
+        return "add";
+    }
+
+    @PostMapping(value = "/edit")
+    public String addAllevo(@RequestBody Allevo allevo) {
+        allevoRepository.save(allevo);
+        return "edit";
     }
 
     @GetMapping("/edit/{id}")
-    public Allevo getAllevoById(@PathVariable Long id){
-    return allevoRepository.findById(id).orElse(null);
+    public String getAllevoById(Model model, @PathVariable("id") Long id) {
+        Allevo allevo = (Allevo) allevoRepository.findById(id).orElse(null);
+        model.addAttribute("allevo", allevo);
+        if (allevo != null) {
+            model.addAttribute("active", allevo.isHoldStatus());
+            model.addAttribute("inactive", !allevo.isHoldStatus());
+            model.addAttribute("isExitPoint", allevo.isExitPoint());
+        }
+        return "edit";
     }
 }
+

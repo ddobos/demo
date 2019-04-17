@@ -1,5 +1,7 @@
 package com.ddobos.allevo.TehnicTest.demo.model;
 
+import org.hibernate.annotations.ManyToAny;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,36 +16,25 @@ public class Allevo {
     private String queueName;
     private String description;
     private int exitPoint;
-    @OneToMany(targetEntity = Action.class)
+    private boolean holdStatus;
+    private boolean isExitPoint;
+    @ManyToMany(targetEntity = Action.class)
     private Set<Action> actions = new HashSet<>();
-    @OneToMany(targetEntity = Type.class)
+    @ManyToMany(targetEntity = Type.class)
     private Set<Type> types = new HashSet<>();
 
 
     public Allevo() {
     }
 
-    public Allevo(Long id, String queueName, String description, int exitPoint, int type, Set<Action> setActions) {
+    public Allevo(Long id, String queueName, String description, int exitPoint, boolean holdStatus, boolean isExitPoint, Set<Action> actions, Set<Type> types) {
         this.id = id;
         this.queueName = queueName;
         this.description = description;
         this.exitPoint = exitPoint;
-        this.actions = setActions;
-    }
-
-    public Set<Action> getActions() {
-        return actions;
-    }
-
-    public void setActions(Set<Action> actions) {
+        this.holdStatus = holdStatus;
+        this.isExitPoint = isExitPoint;
         this.actions = actions;
-    }
-
-    public Set<Type> getTypes() {
-        return types;
-    }
-
-    public void setTypes(Set<Type> types) {
         this.types = types;
     }
 
@@ -79,8 +70,35 @@ public class Allevo {
         this.exitPoint = exitPoint;
     }
 
-    private enum holdStatus {
-        Active,
-        Inactive
+    public boolean isHoldStatus() {
+        return holdStatus;
+    }
+
+    public void setHoldStatus(boolean holdStatus) {
+        this.holdStatus = holdStatus;
+    }
+
+    public boolean isExitPoint() {
+        return isExitPoint;
+    }
+
+    public void setExitPoint(boolean exitPoint) {
+        isExitPoint = exitPoint;
+    }
+
+    public Set<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(Set<Action> actions) {
+        this.actions = actions;
+    }
+
+    public Set<Type> getTypes() {
+        return types;
+    }
+
+    public void setTypes(Set<Type> types) {
+        this.types = types;
     }
 }
