@@ -1,48 +1,39 @@
 package com.ddobos.allevo.TehnicTest.demo.model;
 
-import org.hibernate.annotations.ManyToAny;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-
-@Entity
-@Table(name = "allevo")
 public class Allevo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
     private String queueName;
     private String description;
     private int exitPoint;
     private boolean holdStatus;
-    private boolean isExitPoint;
-    @ManyToMany(targetEntity = Action.class)
-    private Set<Action> actions = new HashSet<>();
-    @ManyToMany(targetEntity = Type.class)
-    private Set<Type> types = new HashSet<>();
-
+    private boolean exitPointBool;
+    private List<Map<String, Integer>> actions;
+    private List<Map<String, Integer>> types;
 
     public Allevo() {
     }
 
-    public Allevo(Long id, String queueName, String description, int exitPoint, boolean holdStatus, boolean isExitPoint, Set<Action> actions, Set<Type> types) {
+    public Allevo(int id, String queueName, String description, int exitPoint, boolean holdStatus, boolean exitPointBool, List<Map<String, Integer>> actions, List<Map<String, Integer>> types) {
         this.id = id;
         this.queueName = queueName;
         this.description = description;
         this.exitPoint = exitPoint;
         this.holdStatus = holdStatus;
-        this.isExitPoint = isExitPoint;
+        this.exitPointBool = exitPointBool;
         this.actions = actions;
         this.types = types;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -78,27 +69,27 @@ public class Allevo {
         this.holdStatus = holdStatus;
     }
 
-    public boolean isExitPoint() {
-        return isExitPoint;
+    public boolean isExitPointBool() {
+        return exitPointBool;
     }
 
-    public void setExitPoint(boolean exitPoint) {
-        isExitPoint = exitPoint;
+    public void setExitPointBool(boolean exitPointBool) {
+        this.exitPointBool = exitPointBool;
     }
 
-    public Set<Action> getActions() {
+    public List<Map<String, Integer>> getActions() {
         return actions;
     }
 
-    public void setActions(Set<Action> actions) {
+    public void setActions(List<Map<String, Integer>> actions) {
         this.actions = actions;
     }
 
-    public Set<Type> getTypes() {
+    public List<Map<String, Integer>> getTypes() {
         return types;
     }
 
-    public void setTypes(Set<Type> types) {
+    public void setTypes(List<Map<String, Integer>> types) {
         this.types = types;
     }
 }

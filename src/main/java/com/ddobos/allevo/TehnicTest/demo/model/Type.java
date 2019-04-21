@@ -1,13 +1,8 @@
 package com.ddobos.allevo.TehnicTest.demo.model;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name = "type")
 public class Type {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
 

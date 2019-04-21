@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Add</title>
 </head>
 <body>
 <div class="container">
@@ -21,29 +21,30 @@
                     Please provide a valid city.
                 </div>
                 <label for="queueName">Queue name</label>
-                <input type="text" class="form-control" id="queueName" placeholder="Queue name" required/>
+                <input type="text" class="form-control" id="queueName" placeholder="Queue name"/>
                 <div class="invalid-feedback">
                     Please provide a valid state.
                 </div>
                 <label for="description">Description</label>
-                <input type="text" class="form-control" id="description" placeholder="description" required/>
+                <input type="text" class="form-control" id="description" placeholder="description"/>
                 <div class="invalid-feedback">
                     Please provide a valid state.
                 </div>
                 <fieldset class="form-group">
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Hold status:</legend>
-                        <div class="col-sm-10">
-                            <div class="form-check">
+
+                        <div class="col-md-12">
+                            Hold status:
+                            <div class="form-check" style="display:inline;padding-left: 1.5rem;">
                                 <input class="form-check-input" type="radio" name="holdStatus" id="Active"
-                                       th:value="${active}" th:checked="${active}"/>
+                                       th:value="${active}" checked/>
                                 <label class="form-check-label" for="Active">
                                     Active
                                 </label>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check" style="display:inline">
                                 <input class="form-check-input" type="radio" name="holdStatus" id="Inactive"
-                                       th:value="${inactive}" th:checked="${inactive}"/>
+                                       th:value="${inactive}"/>
                                 <label class="form-check-label" for="Inactive">
                                     Inactive
                                 </label>
@@ -54,8 +55,7 @@
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="isExitPoint" th:value="${isExitPoint}"
-                                   th:checked="${isExitPoint}"/>
+                            <input class="form-check-input" type="checkbox" id="isExitPoint" th:value="${isExitPoint}"/>
                             <label class="form-check-label" for="isExitPoint">
                                 Has Exitpoint
                             </label>
@@ -63,9 +63,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="exitPoint">State</label>
-                    <select id="exitPoint" class="form-control">
-                        <option selected>Choose...</option>
+                    <select id="exitPoint" class="form-control" style="width:90%">
+                        <option value="0" selected>Choose...</option>
                         <option value=1>Optiunea 1</option>
                         <option value=2>Optiunea 2</option>
                         <option value=3>Optiunea 3</option>
@@ -74,211 +73,112 @@
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="types" id="types1" value="1"/>
-                    <label class="form-check-label" for="types1">
-                        Ordinary
-                    </label>
+                <div class="alert alert-light" role="alert" style="padding:0;margin:0;text-align:center">
+                    Type
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="types" id="types2" value="2"/>
-                    <label class="form-check-label" for="types2">
-                        Reconciliation
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="types" id="types3" value="3"/>
-                    <label class="form-check-label" for="types3">
-                        GSRS
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="types" id="types4" value="4"/>
-                    <label class="form-check-label" for="types4">
-                        950
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="types" id="types5" value="5"/>
-                    <label class="form-check-label" for="types5">
-                        STMT
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="types" id="types6" value="6"/>
-                    <label class="form-check-label" for="types6">
-                        Investigation
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="types" id="types7" value="7"/>
-                    <label class="form-check-label" for="types7">
-                        Debit instruments
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="types" id="types8" value="8"/>
-                    <label class="form-check-label" for="types8">
-                        Debit instruments by Date
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="types" id="types9" value="9"/>
-                    <label class="form-check-label" for="types9">
-                        Debit instruments Refusals
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="types" id="types10" value="10"/>
-                    <label class="form-check-label" for="types10">
-                        Ordinary Debit instruments
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="types" id="types11" value="11"/>
-                    <label class="form-check-label" for="types11">
-                        Sepa
-                    </label>
-                </div>
+                <th:block th:each="type : ${types}">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="types" id="types1" th:value="${type.id}"/>
+                        <label class="form-check-label" for="types1" th:text="${type.name}">
+                            Ordinary
+                        </label>
+                    </div>
+                </th:block>
             </div>
             <!--coloana a treia-->
             <div class="col-md-3 mb-3">
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check1" value="1"/>
-                        <label class="form-check-label" for="isExitPoint">
-                            Authorize
-                        </label>
-                    </div>
+                <div class="alert alert-light" role="alert" style="padding:0;margin:0;text-align:center">
+                    Action
                 </div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check2" value="2"/>
-                        <label class="form-check-label" for="isExitPoint">
-                            Single Authorize
-                        </label>
+                <th:block th:each="action : ${actions}">
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="action" id="check1"
+                                   th:value="${action.id}"/>
+                            <label class="form-check-label" for="isExitPoint" th:text="${action.name}">
+                                Authorize
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check3" value="3"/>
-                        <label class="form-check-label" for="isExitPoint">
-                            Auto Authorize
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check4" value="4"/>
-                        <label class="form-check-label" for="isExitPoint">
-                            Batch
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check5" value="5"/>
-                        <label class="form-check-label" for="isExitPoint">
-                            Rapid Batch
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check6" value="6"/>
-                        <label class="form-check-label" for="isExitPoint">
-                            Auto Batch
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check7" value="7"/>
-                        <label class="form-check-label" for="isExitPoint">
-                            Reject
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check8" value="8"/>
-                        <label class="form-check-label" for="isExitPoint">
-                            Single Reject
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check9" value="9"/>
-                        <label class="form-check-label" for="isExitPoint">
-                            Reject [Client]
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check10" value="10"/>
-                        <label class="form-check-label" for="isExitPoint">
-                            Suspend
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="check11" value="11"/>
-                        <label class="form-check-label" for="isExitPoint">
-                            Single Suspend
-                        </label>
-                    </div>
-                </div>
             </div>
         </div>
         <button class="btn btn-primary" type="submit">Submit form</button>
     </form>
 </div>
-
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"-->
-<!--        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"-->
-<!--        crossorigin="anonymous"></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"-->
-<!--        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"-->
-<!--        crossorigin="anonymous"></script>-->
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"-->
-<!--        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"-->
-<!--        crossorigin="anonymous"></script>-->
 <script
         src="https://code.jquery.com/jquery-3.4.0.min.js"
         integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
         crossorigin="anonymous"></script>
+
 <script>
+  var exitPoint = function () {
+    if ($("#isExitPoint").is(":checked")) {
+        $('#exitPoint').prop('disabled', false);
+    }
+    else {
+        $('#exitPoint').prop('disabled', 'disabled');
+    }
+  };
+  $(exitPoint);
+  $("#isExitPoint").change(exitPoint);
+
+</script>
+<script>
+
+var action;
+var type_arr = new Array();
+
+$("input[name=types]").on('change', function(){
+    type = ($("input[name=types]:checked").val());
+    console.log(type);
+    type_arr = new Array({id:type});
+    console.log(type_arr);
+})
+
+
 $("#allevo").submit(function(event){
     event.preventDefault();
     JSONTest();
 });
     function JSONTest()
 {
+
 var queue = $("#queueName").val();
 var description = $("#description").val();
 var holdStatus = $("#Active").is(":checked");
 var isExitPoint = $("#isExitPoint").is(":checked");
 var exitPoint = $("#exitPoint").val();
 var arr = {};
+favorite = [];
+$.each($("input[name='action']:checked"), function(){
+                favorite.push($(this).val());
+});
+var action = new Array();
+for(var val in favorite){
+    action.push({id:favorite[val]});
+}
+if (queue.trim().length == 0)
+    return false;
 arr["queueName"]= queue;
 arr["description"]=description;
 arr["holdStatus"]=holdStatus;
 arr["isExitPoint"]=isExitPoint;
 arr["exitPoint"]=exitPoint;
+if (type_arr.length > 0){
+    arr["types"] = type_arr;
+}
+if (action.length >0){
+    arr["actions"] = action;
+}
 
-    $.post({
+    $.ajax({
         url: "/edit",
-        type:'json',
-        data: (arr),
-
+        type: "POST",
+        contentType : "application/json",
+        data: JSON.stringify(arr),
+        dataType : 'html',
         success: function (result) {
-            alert(result);
+            location.reload();
         },
         error: function (xhr, ajaxOptions, thrownError) {
         alert(xhr.status);
@@ -286,6 +186,7 @@ arr["exitPoint"]=exitPoint;
         }
     });
 }
+
 </script>
 
 </body>

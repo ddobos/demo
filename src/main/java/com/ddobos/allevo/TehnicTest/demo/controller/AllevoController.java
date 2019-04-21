@@ -1,44 +1,66 @@
 package com.ddobos.allevo.TehnicTest.demo.controller;
 
-import com.ddobos.allevo.TehnicTest.demo.model.Allevo;
-import com.ddobos.allevo.TehnicTest.demo.repository.AllevoRepository;
+import com.ddobos.allevo.TehnicTest.demo.model.*;
+import com.ddobos.allevo.TehnicTest.demo.service.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
 
-@RestController
+@Controller
 public class AllevoController {
 
     @Resource
-    private AllevoRepository allevoRepository;
-
-    @GetMapping("/edit")
-    public List<Allevo> getEditPage() {
-        return allevoRepository.findAll();
-    }
+    private AllevoDAOImpl allevoDaoImpl;
+    @Resource
+    private AllevoTypeDAOImpl allevoTypeDaoImpl;
+    @Resource
+    private AllevoActionDAOImpl allevoActionDaoImpl;
+    @Resource
+    private ActionDAOImpl actionDaoImpl;
+    @Resource
+    private TypeDAOImpl typeDaoImpl;
 
     @GetMapping("/edit/add")
-    public String getAddPage() {
+    public String getAddPage(Model model) {
+        List<Type> typeList = typeDaoImpl.getAllType();
+        Action[] intAction = actionDaoImpl.getAllAction().toArray(new Action[0]);
+        model.addAttribute("actions", intAction);
+        model.addAttribute("types", typeList);
         return "add";
     }
 
     @PostMapping(value = "/edit")
-    public String addAllevo(@RequestBody Allevo allevo) {
-        allevoRepository.save(allevo);
-        return "edit";
+    @ResponseStatus(value = HttpStatus.OK)
+    public String addAllevo(Model model, @RequestBody Allevo allevo) {
+        allevoDaoImpl.createAllevo(allevo);
+        return "add";
     }
 
     @GetMapping("/edit/{id}")
     public String getAllevoById(Model model, @PathVariable("id") Long id) {
-        Allevo allevo = (Allevo) allevoRepository.findById(id).orElse(null);
+        Allevo allevo = (Allevo) allevoDaoImpl.getAllevoById(id);
+        List<AllevoType> allevoTypeList = allevoTypeDaoImpl.getAllAllevoType(id.intValue());
+        List<Integer> actions = new ArrayList<>();
+        for (AllevoAction allevoActionList : allevoActionDaoImpl.getActionAllevoById(id)) {
+            actions.add((int)allevoActionList.getAction_id());
+        }
+
+        Action[] intAction = actionDaoImpl.getAllAction().toArray(new Action[0]);
         model.addAttribute("allevo", allevo);
         if (allevo != null) {
             model.addAttribute("active", allevo.isHoldStatus());
             model.addAttribute("inactive", !allevo.isHoldStatus());
-            model.addAttribute("isExitPoint", allevo.isExitPoint());
+            model.addAttribute("isExitPoint", allevo.isExitPointBool());
+            model.addAttribute("types", allevoTypeList);
+            model.addAttribute("acts", allevoActionDaoImpl.getActionAllevoById(id));
+            model.addAttribute("allAction", intAction);
         }
         return "edit";
     }
